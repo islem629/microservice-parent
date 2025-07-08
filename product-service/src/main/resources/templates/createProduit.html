@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="template">
+<head>
+    <meta charset="UTF-8">
+    <title>Créer un Produit</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div layout:fragment="Mycontent" class="container">
+    <h2>Créer un Produit</h2>
+
+    <form th:action="@{/saveProduit}" method="post">
+        <label for="nomProduit">Nom :</label>
+        <input type="text" id="nomProduit" name="nomProduit" required>
+
+        <label for="prixProduit">Prix :</label>
+        <input type="number" id="prixProduit" name="prixProduit" step="0.01" required>
+
+        <label for="dateCreation">Date de création :</label>
+        <input type="date" id="dateCreation" name="dateCreation" required>
+
+        <!-- Category Selection -->
+        <label for="categorie">Catégorie :</label>
+        <select id="categorie" name="categorie" required>
+            <option value="">Sélectionner une catégorie</option>
+            <option th:each="cat : ${categories}" th:value="${cat.idCat}" th:text="${cat.nomCat}"></option>
+        </select>
+
+        <button type="submit">Ajouter</button>
+    </form>
+
+    <!-- Success Message -->
+    <div th:if="${msg}" class="message">
+        <p th:text="${msg}"></p>
+    </div>
+
+    <a class="link" th:href="@{/ListeProduits}">Voir la Liste des Produits</a>
+</div>
+
+</body>
+</html>
